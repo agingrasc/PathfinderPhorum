@@ -2,5 +2,6 @@
 Having fun with Pathfinder and Haskell
 
 ## Run and setup
-`cabal configure`
-`cabal run`
+```cabal sandbox init
+cabal configure
+cabal run```
