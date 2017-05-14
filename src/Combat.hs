@@ -1,3 +1,8 @@
+module Combat(
+              Character(..),
+              executeFullCombat)
+              where
+
 data Character = Character { hp :: Int,
                              ac :: Int,
                              damage :: Int,
@@ -5,6 +10,11 @@ data Character = Character { hp :: Int,
                              name :: String
                            } deriving (Show)
 
+executeFullCombat :: Character -> Character -> [(Character, Int)]
+executeFullCombat attacker defender
+    | hp attacker <= 0 = []
+    | otherwise = (defender, executeAttack attacker defender) : executeFullCombat (updateHp defender resultHp) attacker
+    where resultHp = executeAttack attacker defender
 
 executeAttack :: Character -> Character -> Int
 executeAttack attacker defender
@@ -12,12 +22,6 @@ executeAttack attacker defender
     | otherwise = hp defender
     where connected = resolveHit (ac defender) (hit attacker)
           resultHp = hp defender - damage attacker
-
-attackTillDead :: Character -> Character -> [(Character, Int)]
-attackTillDead attacker defender
-    | hp attacker <= 0 = []
-    | otherwise = (defender, executeAttack attacker defender) : attackTillDead (updateHp defender resultHp) attacker
-    where resultHp = executeAttack attacker defender
 
 resolveHit :: Int -> Int -> Bool
 resolveHit defense hit = defense < hit
