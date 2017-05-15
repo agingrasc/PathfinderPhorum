@@ -10,10 +10,10 @@ data Character = Character { hp :: Int,
                              name :: String
                            } deriving (Show)
 
-executeFullCombat :: Character -> Character -> [(Character, Int)]
+executeFullCombat :: Character -> Character -> [(String, Int)]
 executeFullCombat attacker defender
     | hp attacker <= 0 = []
-    | otherwise = (defender, executeAttack attacker defender) : executeFullCombat (updateHp defender resultHp) attacker
+    | otherwise = (name defender, executeAttack attacker defender) : executeFullCombat (updateHp defender resultHp) attacker
     where resultHp = executeAttack attacker defender
 
 executeAttack :: Character -> Character -> Int
