@@ -20,11 +20,11 @@ executeAttack :: Character -> Character -> Int
 executeAttack attacker defender
     | connected = resultHp
     | otherwise = hp defender
-    where connected = resolveHit (ac defender) (hit attacker)
+    where connected = resolveHit (hit attacker) (ac defender)
           resultHp = hp defender - damage attacker
 
 resolveHit :: Int -> Int -> Bool
-resolveHit defense hit = defense < hit
+resolveHit hit defense = defense < hit
 
 updateHp :: Character -> Int -> Character
 updateHp character remaining = character {hp = remaining}
