@@ -6,7 +6,7 @@ module Combat(
 data Character = Character { hp :: Int,
                              ac :: Int,
                              damage :: Int,
-                             hit :: Int,
+                             attackBonus :: Int,
                              name :: String
                            } deriving (Show)
 
@@ -20,11 +20,11 @@ executeAttack :: Character -> Character -> Int
 executeAttack attacker defender
     | connected = resultHp
     | otherwise = hp defender
-    where connected = resolveHit (hit attacker) (ac defender)
+    where connected = resolveHit (attackBonus attacker) (ac defender)
           resultHp = hp defender - damage attacker
 
 resolveHit :: Int -> Int -> Bool
-resolveHit hit defense = defense < hit
+resolveHit attackBonus defense = defense < attackBonus
 
 updateHp :: Character -> Int -> Character
 updateHp character remaining = character {hp = remaining}
