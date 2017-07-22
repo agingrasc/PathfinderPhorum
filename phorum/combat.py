@@ -3,9 +3,11 @@ from typing import Tuple
 
 SEED = 1
 
-class Player():
 
-    def __init__(self, hp, ac=10, bab=0, damage_die=6):
+class Player:
+
+    def __init__(self, name, hp, ac=10, bab=0, damage_die=6):
+        self.name = name
         self.hp = hp
         self.ac = ac
         self.bab = bab
