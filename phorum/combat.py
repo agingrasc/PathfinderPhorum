@@ -1,10 +1,31 @@
 import random
+
+import yaml as yaml_lib
 from typing import Tuple
 
 SEED = 1
 
 
+class PlayerLoader:
+
+    @staticmethod
+    def load_from_raw_yaml(raw_yaml, name):
+        loaded_yamls = yaml_lib.load(raw_yaml)
+        #player_yaml = [yaml for yaml in loaded_yamls if yaml['name'] == name][0]
+        player = None
+        if loaded_yamls:
+            player = Player.load_from_yaml(loaded_yamls[0])
+        return player
+
+
 class Player:
+    """
+    @type name: str
+    @type hp: int
+    @type ac: int
+    @type bab: int
+    @type damage_die: int
+    """
 
     def __init__(self, name, hp, ac=10, bab=0, damage_die=6):
         self.name = name
@@ -23,11 +44,28 @@ class Player:
     def is_alive(self):
         return self.hp > 0
 
+    @staticmethod
+    def load_from_yaml(yaml):
+        """"@rtype Player"""
+        return Player(**yaml)
+
     def __eq__(self, other):
-        return self.hp == other.hp and self.ac == other.ac and self.bab == other.bab
+        return self.name == other.name and self.bab == other.bab
 
     def __repr__(self):
-        return "Player({}, {}, {}, {})".format(self.hp, self.ac, self.bab, self.damage_die)
+        return "Player({}, {}, {}, {}, {})".format(self.name, self.hp, self.ac, self.bab, self.damage_die)
+
+
+class NullPlayer(Player):
+
+    def is_alive(self):
+        return False
+
+    def attack(self, target):
+        return target
+
+    def __eq__(self):
+        return False
 
 
 def rounds(ally: Player, enemy: Player) -> Tuple[Player, Player]:
