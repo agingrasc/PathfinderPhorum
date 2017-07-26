@@ -8,24 +8,42 @@ from phorum import combat
 class PlayerLoaderTest(unittest.TestCase):
 
     def setUp(self):
-        self.player_raw_yaml = yaml.dump([{'name': 'Rotovino',
-                                           'hp': 10,
-                                           'ac': 10,
-                                           'bab': 1,
-                                           'damage_die': 6}])
-        self.expected_player = combat.Player('Rotovino', 10, 10, 1, 6)
+        player_one_yaml = {'name': 'Rotovino',
+                           'hp': 10,
+                           'ac': 10,
+                           'bab': 1,
+                           'damage_die': 6}
+        player_two_yaml = {'name': 'Fubar',
+                           'hp': 12,
+                           'ac': 10,
+                           'bab': 0,
+                           'damage_die': 6}
+        self.player_single_raw_yaml = yaml.dump([player_one_yaml])
+        self.player_multi_raw_yaml = yaml.dump([player_one_yaml, player_two_yaml])
+        self.expected_player_one = combat.Player('Rotovino', 10, 10, 1, 6)
+        self.expected_player_two = combat.Player('Fubar', 12, 10, 0, 6)
         pass
 
     def tearDown(self):
         pass
 
     def test_load_player_is_null_player_on_empty_raw_yaml(self):
-        player = combat.PlayerLoader.load_from_raw_yaml(self.player_raw_yaml, '')
+        player = combat.PlayerLoader.load_from_raw_yaml('', '')
+        self.assertEqual(combat.NullPlayer, type(player))
+
+    def test_load_player_is_not_null_player_on_valid_raw_yaml(self):
+        player = combat.PlayerLoader.load_from_raw_yaml(self.player_single_raw_yaml, 'Rotovino')
         self.assertIsNotNone(player)
+        self.assertNotEqual(combat.NullPlayer, type(player))
 
     def test_load_player_from_valid_raw_yaml(self):
-        player = combat.PlayerLoader.load_from_raw_yaml(self.player_raw_yaml, '')
-        self.assertEqual(self.expected_player, player)
+        player = combat.PlayerLoader.load_from_raw_yaml(self.player_single_raw_yaml, 'Rotovino')
+        self.assertEqual(self.expected_player_one, player)
+
+    def test_load_player_from_valid_multi_raw_yaml(self):
+        player = combat.PlayerLoader.load_from_raw_yaml(self.player_multi_raw_yaml, 'Fubar')
+        self.assertNotEqual(self.expected_player_one, player)
+        self.assertEqual(self.expected_player_two, player)
 
 
 class PlayerTest(unittest.TestCase):

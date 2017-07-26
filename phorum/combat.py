@@ -11,10 +11,17 @@ class PlayerLoader:
     @staticmethod
     def load_from_raw_yaml(raw_yaml, name):
         loaded_yamls = yaml_lib.load(raw_yaml)
-        #player_yaml = [yaml for yaml in loaded_yamls if yaml['name'] == name][0]
-        player = None
+        players_yaml = None
         if loaded_yamls:
-            player = Player.load_from_yaml(loaded_yamls[0])
+            players_yaml = [yaml for yaml in loaded_yamls if yaml['name'] == name]
+
+        player = None
+        if players_yaml:
+            player = Player.load_from_yaml(players_yaml[0])
+
+        if player is None:
+            return NullPlayer()
+
         return player
 
 
@@ -57,6 +64,9 @@ class Player:
 
 
 class NullPlayer(Player):
+
+    def __init__(self):
+        pass
 
     def is_alive(self):
         return False
