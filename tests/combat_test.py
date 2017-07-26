@@ -15,9 +15,7 @@ class PlayerTest(unittest.TestCase):
         enemy = self.ally.attack(self.enemy)
         new_enemy_hp = enemy.hp
         self.assertIsNotNone(enemy)
-
-        if new_enemy_hp >= old_enemy_hp:
-            self.fail()
+        self.assertTrue(new_enemy_hp < old_enemy_hp)
 
     def test_attack_no_attack_if_not_alive(self):
         dead_player = combat.Player("dead", 0)
