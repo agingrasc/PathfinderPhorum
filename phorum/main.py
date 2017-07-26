@@ -1,12 +1,22 @@
-import yaml
+import combat
+
+DEFAULT_PLAYER_FILE = 'phorum/data/default_players.yml'
+
+
+def read_raw_players_yaml(filename):
+    with open(filename) as f:
+        lines = f.readlines()
+
+    return "".join(lines)
 
 
 def main():
-    with open('phorum/data/default_players.yml') as f:
-        lines = f.readlines()
+    raw_players_yaml = read_raw_players_yaml(DEFAULT_PLAYER_FILE)
 
-    lines = "".join(lines)
-    print(yaml.load(lines))
+    rotovino = combat.PlayerLoader.load_from_raw_yaml(raw_players_yaml, 'Rotovino')
+    atiay = combat.PlayerLoader.load_from_raw_yaml(raw_players_yaml, 'Atiay')
+    combat.rounds(rotovino, atiay)
+    print("Rotovino: {}\nAtiay: {}".format(rotovino, atiay))
 
 if __name__ == "__main__":
     main()
