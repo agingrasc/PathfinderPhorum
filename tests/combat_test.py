@@ -20,8 +20,8 @@ class PlayerTest(unittest.TestCase):
     def test_attack_no_attack_if_not_alive(self):
         dead_player = combat.Player("dead", 0)
         expected_hp = self.enemy.hp
-        ennemy = dead_player.attack(self.enemy)
-        actual_hp = ennemy.hp
+        enemy = dead_player.attack(self.enemy)
+        actual_hp = enemy.hp
         self.assertEqual(expected_hp, actual_hp)
 
 
