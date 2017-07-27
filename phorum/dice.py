@@ -2,7 +2,9 @@ import random
 
 
 class Dice(object):
-    def __init__(self, max_value, min_value=1):
+    def __init__(self, max_value, min_value=1, seed=None):
+        if seed is not None:
+            random.seed(seed)
         self.max_value = max_value
         self.min_value = min_value
 
