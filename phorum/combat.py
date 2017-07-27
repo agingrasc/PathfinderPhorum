@@ -1,12 +1,11 @@
 import random
 from typing import Tuple
-
-SEED = 1
+from phorum import dice
 
 
 class Player:
 
-    def __init__(self, name, hp, ac=10, bab=0, damage_die=6):
+    def __init__(self, name, hp, ac=10, bab=0, damage_die=dice.Dice(6)):
         self.name = name
         self.hp = hp
         self.ac = ac
@@ -15,8 +14,7 @@ class Player:
 
     def attack(self, target):
         if self.is_alive():
-            random.seed(SEED)
-            dmg = random.randint(0, self.damage_die)
+            dmg = self.damage_die.roll()
             target.hp -= dmg
         return target
 

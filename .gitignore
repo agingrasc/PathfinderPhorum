@@ -1,3 +1,6 @@
+# Custom ignores
+.idea/
+
 
 # Created by https://www.gitignore.io/api/vim,haskell,intellij,sublimetext
 
