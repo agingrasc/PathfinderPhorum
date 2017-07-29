@@ -1,9 +1,10 @@
 import combat
+import player
 
 DEFAULT_PLAYER_FILE = 'phorum/data/default_players.yml'
 
 
-def read_raw_players_yaml(filename):
+def read_raw_yaml(filename):
     with open(filename) as f:
         lines = f.readlines()
 
@@ -11,10 +12,10 @@ def read_raw_players_yaml(filename):
 
 
 def main():
-    raw_players_yaml = read_raw_players_yaml(DEFAULT_PLAYER_FILE)
+    raw_players_yaml = read_raw_yaml(DEFAULT_PLAYER_FILE)
 
-    rotovino = combat.PlayerLoader.load_from_raw_yaml(raw_players_yaml, 'Rotovino')
-    atiay = combat.PlayerLoader.load_from_raw_yaml(raw_players_yaml, 'Atiay')
+    rotovino = player.PlayerLoader.load_from_raw_yaml(raw_players_yaml, 'Rotovino')
+    atiay = player.PlayerLoader.load_from_raw_yaml(raw_players_yaml, 'Atiay')
     combat.rounds(rotovino, atiay)
     print("Rotovino: {}\nAtiay: {}".format(rotovino, atiay))
 
