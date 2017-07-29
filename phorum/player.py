@@ -1,6 +1,6 @@
 import yaml as yaml_lib
 
-import dice
+from phorum import dice
 
 
 class PlayerLoader:

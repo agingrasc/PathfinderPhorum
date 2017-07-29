@@ -4,6 +4,7 @@ import yaml
 
 from phorum import player
 
+
 class PlayerLoaderTest(unittest.TestCase):
 
     def setUp(self):
