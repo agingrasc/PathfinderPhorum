@@ -1,6 +1,7 @@
 import yaml as yaml_lib
 
 from phorum import dice
+from .equipment import equipmentslot
 
 
 class PlayerLoader:
@@ -30,6 +31,7 @@ class Player:
         self.ac = ac
         self.bab = bab
         self.damage_die = damage_die
+        self.equipment = {slot: None for slot in equipmentslot.EquipmentSlot}
 
     def attack(self, target):
         if self.is_alive():
@@ -39,6 +41,9 @@ class Player:
 
     def is_alive(self):
         return self.hp > 0
+
+    def add_equipment(self, equipment):
+        self.equipment[equipment.equipment_slot] = equipment
 
     @staticmethod
     def load_from_yaml(yaml):
