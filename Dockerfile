@@ -10,4 +10,4 @@ RUN pip install -r /app/requirements.txt
 COPY . /app
 WORKDIR /app
 RUN nosetests /app/tests
-CMD python3 phorum/main.py
+CMD python3 main.py
