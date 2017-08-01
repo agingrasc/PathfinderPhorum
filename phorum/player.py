@@ -35,15 +35,30 @@ class Player:
 
     def attack(self, target):
         if self.is_alive():
-            dmg = self.damage_die.roll()
+            dmg = self._get_damage_done()
             target.hp -= dmg
         return target
 
     def is_alive(self):
         return self.hp > 0
 
+
+
     def add_equipment(self, equipment):
         self.equipment[equipment.equipment_slot] = equipment
+
+    def remove_equipment(self, slot):
+        self.equipment[slot] = None
+
+    def _is_equipment_slot_empty(self, slot):
+        return self.equipment[slot] is None
+
+    def _get_damage_done(self):
+        weapon_slot = equipmentslot.EquipmentSlot.HANDS
+        if self._is_equipment_slot_empty(weapon_slot):
+            return self.damage_die.roll()
+        else:
+            return self.equipment[weapon_slot].get_damage()
 
     @staticmethod
     def load_from_yaml(yaml):
