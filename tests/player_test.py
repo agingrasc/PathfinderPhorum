@@ -3,6 +3,7 @@ import unittest
 import yaml
 
 from phorum import player
+from phorum import dice
 
 
 class PlayerLoaderTest(unittest.TestCase):
@@ -47,6 +48,11 @@ class PlayerLoaderTest(unittest.TestCase):
     def test_load_player_is_second_player_from_valid_multi_raw_yaml(self):
         second_player_from_raw = player.PlayerLoader.load_from_raw_yaml(self.player_multi_raw_yaml, 'Fubar')
         self.assertEqual(self.expected_player_two, second_player_from_raw)
+
+    def test_load_player_has_a_dice(self):
+        expected_dice_type = dice.Dice
+        player_dice_type = type(self.expected_player_one.damage_die)
+        self.assertEqual(expected_dice_type, player_dice_type)
 
 
 class PlayerTest(unittest.TestCase):

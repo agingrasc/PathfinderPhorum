@@ -7,8 +7,8 @@ from phorum import combat
 class CombatTest(unittest.TestCase):
 
     def setUp(self):
-        self.ally = player.Player(12, 20, 10, 6)
-        self.enemy = player.Player(12, 10, 1, 6)
+        self.ally = player.Player(12, 20, 10)
+        self.enemy = player.Player(12, 10, 1)
 
     def tearDown(self):
         pass
