@@ -101,24 +101,6 @@ class PlayerTest(unittest.TestCase):
         not_null_player = player.Player.load_from_yaml(self.player_yaml)
         self.assertEqual(expected_player, not_null_player)
 
-    def test_add_equipment_replaces_correct_slot(self):
-        sword = weapon.Weapon("ashbringer", [dice.Dice(12, 12)])
-        self.ally.add_equipment(sword)
-
-        self.assertEqual(sword, self.ally.equipment[equipmentslot.EquipmentSlot.HANDS])
-        self.assertTrue(self.ally.equipment[equipmentslot.EquipmentSlot.CHEST] is None)
-
-    def test_remove_equipment_removes_correct_slot(self):
-        sword = weapon.Weapon("ashbringer", [dice.Dice(12, 12)])
-        shoulderblade = weapon.Weapon("shoulderblade", [dice.Dice(12, 12)], equipmentslot.EquipmentSlot.CHEST)
-        self.ally.add_equipment(sword)
-        self.ally.add_equipment(shoulderblade)
-
-        self.ally.remove_equipment(equipmentslot.EquipmentSlot.CHEST)
-
-        self.assertEqual(sword, self.ally.equipment[equipmentslot.EquipmentSlot.HANDS])
-        self.assertTrue(self.ally.equipment[equipmentslot.EquipmentSlot.CHEST] is None)
-
     def test_attack_with_weapon_gives_weapon_damage(self):
         sword = weapon.Weapon("ashbringer", [dice.Dice(10, 10)])
         self.ally.add_equipment(sword)
