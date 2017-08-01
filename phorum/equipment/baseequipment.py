@@ -1,4 +1,4 @@
-from ..equipment import equipmentslot
+from . import equipmentslot
 
 
 class Equipment(object):

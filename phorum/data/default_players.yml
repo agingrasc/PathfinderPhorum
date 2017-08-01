@@ -3,10 +3,8 @@
   hp: 10
   ac: 10
   bab: 1
-  damage_die: 6
 
 - name: "Atiay"
   hp: 8
   ac: 10
   bab: 1
-  damage_die: 6

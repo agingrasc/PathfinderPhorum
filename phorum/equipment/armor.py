@@ -1,4 +1,4 @@
-from ..equipment import equipmentslot, baseequipment
+from . import equipmentslot, baseequipment
 
 
 class Armor(baseequipment.Equipment):

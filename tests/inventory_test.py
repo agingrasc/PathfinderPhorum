@@ -33,7 +33,7 @@ class InventoryTest(unittest.TestCase):
     def test_get_weapon_damage_returns_correct_damage(self):
         sword = weapon.Weapon("ashbringer", [dice.Dice(12, 12)])
         self.base_inventory.add_equipment(sword)
-        
+
         damage = self.base_inventory.get_weapon_damage()
 
         self.assertEqual(12, damage)

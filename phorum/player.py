@@ -58,7 +58,7 @@ class Player:
         return self.name == other.name and self.bab == other.bab
 
     def __repr__(self):
-        return "Player({}, {}, {}, {}, {})".format(self.name, self.hp, self.ac, self.bab, self.damage_die)
+        return "Player({}, {}, {}, {}, {})".format(self.name, self.hp, self.ac, self.bab)
 
 
 class NullPlayer(Player):

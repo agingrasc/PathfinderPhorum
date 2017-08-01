@@ -12,17 +12,15 @@ class PlayerLoaderTest(unittest.TestCase):
         player_one_yaml = {'name': 'Rotovino',
                            'hp': 10,
                            'ac': 10,
-                           'bab': 1,
-                           'damage_die': 6}
+                           'bab': 1}
         player_two_yaml = {'name': 'Fubar',
                            'hp': 12,
                            'ac': 10,
-                           'bab': 0,
-                           'damage_die': 6}
+                           'bab': 0}
         self.player_single_raw_yaml = yaml.dump([player_one_yaml])
         self.player_multi_raw_yaml = yaml.dump([player_one_yaml, player_two_yaml])
-        self.expected_player_one = player.Player('Rotovino', 10, 10, 1, 6)
-        self.expected_player_two = player.Player('Fubar', 12, 10, 0, 6)
+        self.expected_player_one = player.Player('Rotovino', 10, 10, 1)
+        self.expected_player_two = player.Player('Fubar', 12, 10, 0)
         pass
 
     def tearDown(self):
@@ -58,8 +56,7 @@ class PlayerTest(unittest.TestCase):
         self.player_yaml = {'name': 'Rotovino',
                             'hp': 10,
                             'ac': 10,
-                            'bab': 1,
-                            'damage_die': 6}
+                            'bab': 1}
 
     def tearDown(self):
         pass
@@ -97,7 +94,7 @@ class PlayerTest(unittest.TestCase):
         self.assertIsNotNone(not_null_player)
 
     def test_load_from_valid_yaml_player_has_same_attributes(self):
-        expected_player = player.Player('Rotovino', 10, 10, 1, 6)
+        expected_player = player.Player('Rotovino', 10, 10, 1)
         not_null_player = player.Player.load_from_yaml(self.player_yaml)
         self.assertEqual(expected_player, not_null_player)
 
