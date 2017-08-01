@@ -3,7 +3,7 @@ import unittest
 import yaml
 
 from phorum import player, dice
-from phorum.equipment import weapon, equipmentslot
+from phorum.equipment import weapon
 
 
 class PlayerLoaderTest(unittest.TestCase):
@@ -104,7 +104,5 @@ class PlayerTest(unittest.TestCase):
     def test_attack_with_weapon_gives_weapon_damage(self):
         sword = weapon.Weapon("ashbringer", [dice.Dice(10, 10)])
         self.ally.add_equipment(sword)
-
         self.ally.attack(self.enemy)
-
         self.assertEqual(2, self.enemy.hp)
