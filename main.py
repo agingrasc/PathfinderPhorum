@@ -1,5 +1,5 @@
-import combat
-import player
+from phorum import combat
+from phorum import player
 
 DEFAULT_PLAYER_FILE = 'phorum/data/default_players.yml'
 
