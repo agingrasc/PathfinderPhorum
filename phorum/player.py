@@ -29,7 +29,7 @@ class Player:
         self.hp = hp
         self.ac = ac
         self.bab = bab
-        self.inventory = inventory.Inventory()
+        self._inventory = inventory.Inventory()
 
     def attack(self, target):
         if self.is_alive():
@@ -41,13 +41,13 @@ class Player:
         return self.hp > 0
 
     def add_equipment(self, equipment):
-        self.inventory.add_equipment(equipment)
+        self._inventory.add_equipment(equipment)
 
     def remove_equipment(self, slot):
-        self.inventory.remove_equipment(slot)
+        self._inventory.remove_equipment(slot)
 
     def _get_damage_done(self):
-        return self.inventory.get_weapon_damage()
+        return self._inventory.weapon_damage()
 
     @staticmethod
     def load_from_yaml(yaml):

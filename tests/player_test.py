@@ -98,7 +98,7 @@ class PlayerTest(unittest.TestCase):
         not_null_player = player.Player.load_from_yaml(self.player_yaml)
         self.assertEqual(expected_player, not_null_player)
 
-    def test_attack_with_weapon_gives_weapon_damage(self):
+    def test_attack_gives_weapon_damage(self):
         sword = weapon.Weapon("ashbringer", [dice.Dice(10, 10)])
         self.ally.add_equipment(sword)
         self.ally.attack(self.enemy)

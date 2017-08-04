@@ -13,7 +13,7 @@ class Inventory(object):
     def remove_equipment(self, slot):
         self.equipment[slot] = None
 
-    def get_weapon_damage(self):
+    def weapon_damage(self):
         weapon_slot = equipmentslot.EquipmentSlot.HANDS
-        return self.equipment[weapon_slot].get_damage()
+        return self.equipment[weapon_slot].damage()
 

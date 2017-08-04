@@ -14,13 +14,13 @@ class WeaponTest(unittest.TestCase):
     def test_weapon_one_dice_damage_equals_dice(self):
         damage_dice = [self.dice_six]
         sword = weapon.Weapon("sword", damage_dice)
-        damage = sword.get_damage()
+        damage = sword.damage()
 
         self.assertEqual(6, damage)
 
     def test_weapon_two_dice_damage_equals_sum(self):
         damage_dice = [self.dice_six, self.dice_three]
         sword = weapon.Weapon("sword", damage_dice)
-        damage = sword.get_damage()
+        damage = sword.damage()
 
         self.assertEqual(9, damage)
