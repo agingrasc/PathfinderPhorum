@@ -1,6 +1,6 @@
 import yaml as yaml_lib
 
-from phorum import dice
+from . import inventory
 
 
 class PlayerLoader:
@@ -24,21 +24,30 @@ class PlayerLoader:
 
 class Player:
 
-    def __init__(self, name, hp, ac=10, bab=0, damage_die=6):
+    def __init__(self, name, hp, ac=10, bab=0):
         self.name = name
         self.hp = hp
         self.ac = ac
         self.bab = bab
-        self.damage_die = dice.Dice(damage_die)
+        self._inventory = inventory.Inventory()
 
     def attack(self, target):
         if self.is_alive():
-            dmg = self.damage_die.roll()
+            dmg = self._get_damage_done()
             target.hp -= dmg
         return target
 
     def is_alive(self):
         return self.hp > 0
+
+    def add_equipment(self, equipment):
+        self._inventory.add_equipment(equipment)
+
+    def remove_equipment(self, slot):
+        self._inventory.remove_equipment(slot)
+
+    def _get_damage_done(self):
+        return self._inventory.weapon_damage()
 
     @staticmethod
     def load_from_yaml(yaml):
@@ -49,7 +58,7 @@ class Player:
         return self.name == other.name and self.bab == other.bab
 
     def __repr__(self):
-        return "Player({}, {}, {}, {}, {})".format(self.name, self.hp, self.ac, self.bab, self.damage_die)
+        return "Player({}, {}, {}, {})".format(self.name, self.hp, self.ac, self.bab)
 
 
 class NullPlayer(Player):

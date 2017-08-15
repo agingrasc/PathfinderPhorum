@@ -2,8 +2,8 @@ import unittest
 
 import yaml
 
-from phorum import player
-from phorum import dice
+from phorum import player, dice
+from phorum.equipment import weapon
 
 
 class PlayerLoaderTest(unittest.TestCase):
@@ -12,17 +12,15 @@ class PlayerLoaderTest(unittest.TestCase):
         player_one_yaml = {'name': 'Rotovino',
                            'hp': 10,
                            'ac': 10,
-                           'bab': 1,
-                           'damage_die': 6}
+                           'bab': 1}
         player_two_yaml = {'name': 'Fubar',
                            'hp': 12,
                            'ac': 10,
-                           'bab': 0,
-                           'damage_die': 6}
+                           'bab': 0}
         self.player_single_raw_yaml = yaml.dump([player_one_yaml])
         self.player_multi_raw_yaml = yaml.dump([player_one_yaml, player_two_yaml])
-        self.expected_player_one = player.Player('Rotovino', 10, 10, 1, 6)
-        self.expected_player_two = player.Player('Fubar', 12, 10, 0, 6)
+        self.expected_player_one = player.Player('Rotovino', 10, 10, 1)
+        self.expected_player_two = player.Player('Fubar', 12, 10, 0)
         pass
 
     def tearDown(self):
@@ -49,22 +47,16 @@ class PlayerLoaderTest(unittest.TestCase):
         second_player_from_raw = player.PlayerLoader.load_from_raw_yaml(self.player_multi_raw_yaml, 'Fubar')
         self.assertEqual(self.expected_player_two, second_player_from_raw)
 
-    def test_load_player_has_a_dice(self):
-        expected_dice_type = dice.Dice
-        player_dice_type = type(self.expected_player_one.damage_die)
-        self.assertEqual(expected_dice_type, player_dice_type)
-
 
 class PlayerTest(unittest.TestCase):
 
     def setUp(self):
         self.ally = player.Player("ally", 12)
-        self.enemy = player.Player("ally", 12)
+        self.enemy = player.Player("ennemy", 12)
         self.player_yaml = {'name': 'Rotovino',
                             'hp': 10,
                             'ac': 10,
-                            'bab': 1,
-                            'damage_die': 6}
+                            'bab': 1}
 
     def tearDown(self):
         pass
@@ -102,6 +94,12 @@ class PlayerTest(unittest.TestCase):
         self.assertIsNotNone(not_null_player)
 
     def test_load_from_valid_yaml_player_has_same_attributes(self):
-        expected_player = player.Player('Rotovino', 10, 10, 1, 6)
+        expected_player = player.Player('Rotovino', 10, 10, 1)
         not_null_player = player.Player.load_from_yaml(self.player_yaml)
         self.assertEqual(expected_player, not_null_player)
+
+    def test_attack_gives_weapon_damage(self):
+        sword = weapon.Weapon("ashbringer", [dice.Dice(10, 10)])
+        self.ally.add_equipment(sword)
+        self.ally.attack(self.enemy)
+        self.assertEqual(2, self.enemy.hp)
