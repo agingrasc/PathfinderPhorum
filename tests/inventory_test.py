@@ -19,6 +19,12 @@ class InventoryTest(unittest.TestCase):
         self.assertIsNotNone(self.base_inventory.equipment[equipmentslot.EquipmentSlot.HANDS])
         self.assertIsNone(self.base_inventory.equipment[equipmentslot.EquipmentSlot.CHEST])
 
+    def test_add_equipment_adds_correct_item(self):
+        sword = weapon.Weapon("ashbringer", [dice.Dice(12, 12)])
+        self.base_inventory.add_equipment(sword)
+
+        self.assertEqual(sword, self.base_inventory.equipment[equipmentslot.EquipmentSlot.HANDS])
+
     def test_remove_equipment_removes_correct_slot(self):
         sword = weapon.Weapon("ashbringer", [dice.Dice(12, 12)])
         shirt = armor.Armor("shirt", 2)
