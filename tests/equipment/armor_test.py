@@ -9,8 +9,8 @@ class WeaponTest(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def test_armor_get_armor_bonus_equals_bonus(self):
+    def test_given_normal_armor_when_compute_normal_armor_class_then_return_armor_class(self):
         shirt = armor.Armor("Shirt", 6)
-        armor_bonus = shirt.get_armor_bonus()
+        armor_bonus = shirt.compute_normal_armor_class()
 
         self.assertEqual(6, armor_bonus)
