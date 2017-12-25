@@ -6,5 +6,5 @@ class Armor(baseequipment.Equipment):
         super().__init__(name, equipment_slot)
         self.armor_bonus = armor_bonus
 
-    def compute_armor_bonus(self):
+    def compute_normal_armor_class(self):
         return self.armor_bonus

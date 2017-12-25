@@ -1,4 +1,5 @@
 import unittest
+from unittest import mock
 
 from phorum import inventory, dice
 from phorum.equipment import armor, weapon, equipmentslot
@@ -38,10 +39,11 @@ class InventoryTest(unittest.TestCase):
 
         self.assertEqual(12, damage)
 
-    def test_get_armor_bonus_returns_correct_bonus(self):
-        shirt = armor.Armor("shirt", 2)
+    def test_given_inventory_with_an_armor_when_compute_effective_armor_class_then_return_armor_class(self):
+        shirt = armor.Armor('shirt', 2)
+        shirt.compute_normal_armor_class = mock.MagicMock()
         self.base_inventory.add_equipment(shirt)
 
-        bonus = self.base_inventory.get_total_armor_value()
+        self.base_inventory.compute_normal_armor_class()
 
-        self.assertEqual(2, bonus)
+        shirt.compute_normal_armor_class.assert_called_once()

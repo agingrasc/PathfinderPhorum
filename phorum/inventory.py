@@ -17,6 +17,6 @@ class Inventory(object):
         weapon_slot = equipmentslot.EquipmentSlot.HANDS
         return self.equipment[weapon_slot].damage()
 
-    def get_total_armor_value(self):
+    def compute_normal_armor_class(self):
         armor_slot = equipmentslot.EquipmentSlot.CHEST
-        return self.equipment[armor_slot].get_armor_bonus()
+        return self.equipment[armor_slot].compute_normal_armor_class()
